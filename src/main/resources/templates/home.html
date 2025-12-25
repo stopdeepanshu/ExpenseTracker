@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+
+    <!-- AI JS -->
+    <script src="/Js/ai.js" defer></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            transform: scale(0.85);
+            transform-origin: top center;
+        }
+        html, body {
+            overflow-y: auto;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #333;
+            padding: 15px 30px;
+            color: white;
+        }
+
+        nav h2 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        nav .links a {
+            color: white;
+            margin-left: 15px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        nav .links a:hover {
+            text-decoration: underline;
+        }
+
+        section {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background: #333;
+            color: white;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background: #555;
+        }
+
+        table {
+            margin: 20px auto;
+            background: white;
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        table th, table td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        table th {
+            background: #333;
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background: #f0f0f0;
+        }
+
+        /* AI Block */
+        .ai-container {
+            width: 90%;
+            margin: 40px auto;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .card {
+            background: white;
+            padding: 18px;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+            width: 320px;
+            text-align: left;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <h2>Cash Counter</h2>
+
+    <div class="links">
+        <a href="/">Home</a>
+        <a href="/add-expense">Add Expense</a>
+        <a href="/view-expenses">View Expenses</a>
+        <a href="/summary">Summary</a>
+    </div>
+</nav>
+
+<section>
+    <h1>Welcome to Your Cash Counter Dashboard</h1>
+    <p>Quick actions to manage your daily expenses:</p>
+
+    <a href="/add-expense"><button>Add New Expense</button></a>
+    <a href="/view-expenses"><button>View All Expenses</button></a>
+    <a href="/summary"><button>Monthly Summary</button></a>
+</section>
+
+<section>
+    <h2>Recent 5 Expenses</h2>
+
+    <table border="1" cellpadding="10">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="row : ${homeData}">
+                <td th:text="${row.date}"></td>
+                <td th:text="${row.title}"></td>
+                <td th:text="${row.category}"></td>
+                <td th:text="${row.amount}"></td>
+                <td>
+                    <a th:href="@{/update/{id}(id=${row.id})}">Edit</a> |
+                    <a th:href="@{/delete/{id}(id=${row.id})}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3>Total Expenses This Month: ₹<span th:text="${monthlyTotal}"></span></h3>
+</section>
+
+<!-- AI FEATURE SECTION -->
+<section>
+    <h2>AI Insights</h2>
+
+    <div class="ai-container">
+
+        <!-- Card 1 -->
+        <div class="card">
+            <h3>Savings Suggestion</h3>
+            <p id="ai-suggest-text">Click to generate your personalized savings advice.</p>
+            <button id="ai-suggest-btn">Get Savings Suggestion</button>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+            <h3>Spending Insights</h3>
+            <p id="ai-insight-text">See where your spending increased or decreased.</p>
+            <button id="ai-insight-btn">Get Spending Insights</button>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+            <h3>Ask AI</h3>
+            <textarea id="ai-chat-input" rows="3" placeholder="Ask anything..."></textarea>
+            <button id="ai-chat-send" style="margin-top:10px;">Send</button>
+            <p id="ai-chat-output" style="margin-top:10px; font-weight:bold;"></p>
+        </div>
+
+    </div>
+</section>
+
+</body>
+</html>

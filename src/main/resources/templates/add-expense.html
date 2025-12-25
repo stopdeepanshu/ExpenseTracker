@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Add-Expense</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+    }
+
+    /* NAVBAR */
+    nav {
+        display: flex;
+        justify-content: space-between; /* Logo left, links right */
+        align-items: center;
+        background: #333;
+        padding: 15px 30px;
+        color: white;
+    }
+
+    nav h2 {
+        margin: 0;
+        font-weight: 600;
+    }
+
+    nav a {
+        margin-left: 15px;
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    nav a:hover {
+        text-decoration: underline;
+    }
+
+    /* CENTER PAGE CONTENT */
+    h2 {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    /* FORM STYLING */
+    form {
+        width: 400px;
+        margin: 0 auto;     /* Center form */
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        margin-top: 20px;
+    }
+
+    form input, 
+    form select, 
+    form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    form button {
+        width: 100%;
+        padding: 12px;
+        background: #333;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    form button:hover {
+        background: #555;
+    }
+
+    /* BACK BUTTON */
+    .back-btn {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .back-btn button {
+        padding: 10px 20px;
+        background: #333;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
+    .back-btn button:hover {
+        background: #555;
+    }
+
+</style>
+
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        
+        <div>
+            <a href="/">Home</a>
+            <a href="/add-expense">Add Expense</a>
+            <a href="/view-expenses">View Expense</a>
+            <a href="/summary">Summary</a>
+        </div>
+    </nav>
+
+    <h2>Add New Expense</h2>
+	
+    <form action="/save-expense" method="post">
+    
+        Title: <input type="text" name="title" >
+
+        Amount: <input type="text" name="amount" >
+        Category:  <select name="category">
+            <option value="">----Select Category----</option>
+            <option value="Food">Food</option>
+            <option value="Travel">Travel</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Bills">Bills</option>
+            <option value="Others">Others</option>
+        </select>
+	<p style="color:red;" th:text="${error}"></p>
+
+        Date:
+        <input type="date" name="date"  max="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" >
+
+        Description:
+        <textarea name="description" rows="4"></textarea>
+
+        <button type="submit">Save Expense</button>
+    </form>
+
+    <div class="back-btn">
+        <a href="/"><button>Back To Home</button></a>
+    </div>
+</body>
+</html>

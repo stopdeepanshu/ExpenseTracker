@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>View Expense</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+    }
+
+    /* NAVBAR */
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #333;
+        padding: 15px 30px;
+        color: white;
+    }
+
+    nav h2 {
+        margin: 0;
+        font-weight: 600;
+    }
+
+    nav a {
+        margin-left: 15px;
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    nav a:hover {
+        text-decoration: underline;
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    /* TABLE */
+    table {
+        width: 90%;
+        margin: 30px auto;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    table th {
+        background: #333;
+        color: white;
+        padding: 12px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    table td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    table tr:nth-child(even) {
+        background: #f2f2f2;
+    }
+
+    button {
+        padding: 8px 14px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 14px;
+        background: #333;
+        color: white;
+    }
+
+    button:hover {
+        background: #555;
+    }
+
+    /* BACK BUTTON */
+    .back-btn {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .back-btn button {
+        padding: 10px 20px;
+    }
+
+</style>
+
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <h2>Cash Counter</h2>
+        <div>
+            <a href="/">Home</a>
+            <a href="/add-expense">Add Expense</a>
+            <a href="/view-expenses">View Expense</a>
+            <a href="/summary">Summary</a>
+        </div>
+    </nav>
+
+    <h2><u>All Expenses List</u></h2>
+
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Category</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Title</th>
+            <th>Action</th>
+        </tr>
+
+        <tr th:each="d:${data}">
+            <td th:text="${d.id}"></td>
+            <td th:text="${d.category}"></td>
+            <td th:text="'₹' +${d.amount}"></td>
+            <td th:text="${d.date}"></td>
+            <td th:text="${d.description}"></td>
+            <td th:text="${d.title}"></td>
+            <td>
+                <a th:href="@{'/update/' + ${d.id}}"><button>Update</button></a>
+                <a th:href="@{'/delete/' + ${d.id}}"><button>Delete</button></a>
+            </td>
+        </tr>
+
+    </table>
+
+    <div class="back-btn">
+        <a href="/"><button>Back to Homepage</button></a>
+    </div>
+
+</body>
+</html>

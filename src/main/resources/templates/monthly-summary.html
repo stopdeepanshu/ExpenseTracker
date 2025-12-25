@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Monthly Summary</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #333;
+        padding: 15px 30px;
+        color: white;
+    }
+
+    nav h2 {
+        margin: 0;
+    }
+
+    nav a {
+        margin-left: 15px;
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    nav a:hover {
+        text-decoration: underline;
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    form {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    form input, form button {
+        padding: 10px 15px;
+        margin: 5px;
+        font-size: 15px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    form button {
+        cursor: pointer;
+        background: #333;
+        color: white;
+        border: none;
+    }
+
+    form button:hover {
+        background: #555;
+    }
+
+    h3 {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    table {
+        width: 70%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    table th {
+        background: #333;
+        color: white;
+        padding: 12px;
+        text-align: center;
+    }
+
+    table td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    table tr:nth-child(even) {
+        background: #f2f2f2;
+    }
+
+    .back-btn {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .back-btn a button {
+        padding: 10px 20px;
+        background: #333;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .back-btn a button:hover {
+        background: #555;
+    }
+</style>
+
+</head>
+<body>
+
+    <nav>
+        <h2>Cash Counter</h2>
+        <div>
+            <a href="/">Home</a>
+            <a href="/add-expense">Add Expense</a>
+            <a href="/view-expenses">View Expense</a>
+            <a href="/summary">Summary</a>
+        </div>
+    </nav>
+
+    <h2>Monthly Expense Summary</h2>
+
+    <form action="/monthlySummary" method="get">
+        <label>Select Month:</label>
+        <input type="month" name="month" th:value="${selectedMonth}">
+        <button type="submit">Show</button>
+    </form>
+
+    <h3>
+        Total Expense for 
+        <span th:text="${selectedMonth}"></span> : 
+        ₹<span th:text="${monthlyTotal}"></span>
+    </h3>
+
+    <h3>Category Breakdown</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Total Amount</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="entry : ${categoryTotals}">
+                <td th:text="${entry.key}"></td>
+                <td th:text="${entry.value}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="back-btn">
+        <a href="/"><button>Back to Home</button></a>
+    </div>
+
+</body>
+</html>

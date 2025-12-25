@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Update Expense</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #333;
+        padding: 15px 30px;
+        color: white;
+    }
+
+    nav h2 {
+        margin: 0;
+    }
+
+    nav a {
+        margin-left: 15px;
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    nav a:hover {
+        text-decoration: underline;
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    form {
+        width: 400px;
+        margin: 0 auto;
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        margin-top: 20px;
+    }
+
+    form input, 
+    form select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    form button {
+        width: 100%;
+        padding: 12px;
+        background: #333;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    form button:hover {
+        background: #555;
+    }
+
+    .back-btn {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .back-btn button {
+        padding: 10px 20px;
+        background: #333;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .back-btn button:hover {
+        background: #555;
+    }
+</style>
+
+</head>
+<body>
+
+    <nav>
+        <h2>Cash Counter</h2>
+        <div>
+            <a href="/">Home</a>
+            <a href="/add-expense">Add Expense</a>
+            <a href="/view-expenses">View Expense</a>
+            <a href="/summary">Summary</a>
+        </div>
+    </nav>
+
+    <h2>Update Expense</h2>
+
+    <form action="/update-Expense" method="post" th:object="${exp}">
+        <input type="hidden" th:field="*{id}">
+
+        Title:
+        <input type="text" th:field="*{title}">
+
+        Amount:
+        <input type="text" th:field="*{amount}">
+
+        Category:
+        <select th:field="*{category}">
+            <option value="">----Select Category----</option>
+            <option value="Food">Food</option>
+            <option value="Travel">Travel</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Bills">Bills</option>
+            <option value="Others">Others</option>
+        </select>
+
+        Date:
+        <input type="date" th:field="*{date}">
+
+        Description:
+        <input type="text" th:field="*{description}">
+
+        <button type="submit">Update All</button> <br> <br>
+        <a href="/"><button>Back to Homepage</button></a>
+    </form>
+
+  
+
+</body>
+</html>
